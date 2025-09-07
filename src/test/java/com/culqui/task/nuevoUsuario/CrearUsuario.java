@@ -26,7 +26,7 @@ public class CrearUsuario implements Task {
     public <T extends Actor> void performAs(T actor) {
         actor.attemptsTo(
                 Enter.theValue(nombre).into(RegistroUser.INPUT_NOMBRE_REGISTE),
-                Enter.theValue(correo).into(RegistroUser.INPUT_CORREO_REGISTED),
+                Enter.theValue(correo).into(RegistroUser. INPUT_CORREO_SIGNUP),
                 Click.on(RegistroUser.BUTTON_INCRIBIRSE)
         );
     }

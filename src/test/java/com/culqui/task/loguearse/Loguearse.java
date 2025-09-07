@@ -27,7 +27,7 @@ public class Loguearse implements Task {
     @Override
     public <T extends Actor> void performAs(T actor) {
         actor.attemptsTo(
-                Enter.theValue(email).into(LoginUser.INPUT_CORREO),
+                Enter.theValue(email).into(LoginUser.INPUT_CORREO_LOGIN),
                 Enter.theValue(password).into(LoginUser.INPUT_PASSWORD)
 
         );

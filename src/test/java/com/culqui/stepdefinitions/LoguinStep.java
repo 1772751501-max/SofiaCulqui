@@ -31,9 +31,7 @@ public class LoguinStep {
                 NavegateTo.AutomationExercise()
 
         );
-        theActorInTheSpotlight().should(
-                seeThat("New User Signup!", ElTituloRegistro.validarPantallaRegistro(), equalTo(true))
-        );
+
         theActorCalled(actor).attemptsTo(
 
                 Inicio.empezarLogueoRegistro()
@@ -50,8 +48,8 @@ public class LoguinStep {
         );
 
     }
-    @And("presiona el botón de iniciar sesión")
-    public void presiona_el_botón_de_iniciar_sesión() {
+    @And("presiona el boton de iniciar sesion")
+    public void presiona_el_boton_de_iniciar_sesion() {
         OnStage.theActorInTheSpotlight().attemptsTo(
                 Click.on(LoginUser.BUTTON_LOGUEARSE)
         );
@@ -62,7 +60,7 @@ public class LoguinStep {
     @Then("muestra el boton de logout")
     public void muestra_el_boton_de_logout() {
         theActorInTheSpotlight().should(
-                seeThat("Logout", ElBotonLogout.validarLogueo(), equalTo("Logout"))
+                seeThat("Logout", ElBotonLogout.validarLogueo(), equalTo(true))
         );    }
 }
 

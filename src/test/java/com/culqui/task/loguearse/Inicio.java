@@ -14,14 +14,12 @@ import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.isVisi
 
 public class Inicio implements Task {
     public static Performable empezarLogueoRegistro() {
-        return instrumented(Loguearse.class );
-
+        return instrumented(Inicio.class);
     }
-
     @Override
     public <T extends Actor> void performAs(T actor) {
         actor.attemptsTo(
-                WaitUntil.the(LoginUser.BUTTON_LOGIN_REGISTER,isVisible()).forNoMoreThan(8).seconds(),
+               // WaitUntil.the(LoginUser.BUTTON_LOGIN_REGISTER,isVisible()).forNoMoreThan(8).seconds(),
                 Click.on(LoginUser.BUTTON_LOGIN_REGISTER)
         );
     }

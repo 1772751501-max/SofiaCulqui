@@ -16,14 +16,13 @@ import java.util.logging.Logger;
         plugin = {"json:target/build/cucumber.json","html:target/cucumber/fast-report/cucumber-pretty.html"},
         features = {"src/test/resources/features"},
         glue = {"com.culqui.stepdefinitions", "com.culqui.hooks"},
-        tags = "@registro_exitoso"
+        tags = " @login_fallido_usuario_incorrecto"
 
 
 )
 
 public class CucumberTestSuite {
 
-    private static EnvironmentVariables envs = SystemEnvironmentVariables.createEnvironmentVariables();
 
 
 }

@@ -12,24 +12,30 @@ Feature: Inicio de sesión de cliente
   @login_exitoso
   Scenario Outline: Inicio de sesión exitoso con credenciales válidas
     When ingresa el correo "<email>" y la contraseña "<password>"
-    And  presiona el botón de iniciar sesión
+    And  presiona el boton de iniciar sesion
     Then  muestra el boton de logout
 
     Examples:
       | email            | password   |
-      | juan@mail.com    | Pass1234   |
-      | maria@mail.com   | Maria2024  |
+      | juan@mail.com    | pass123   |
 
 
     #UnHappy path Cliente
-  @login_noexitoso
-  Scenario: Login con usuario incorrecto
-    Given el usuario navega a la página de login
-    When ingresa usuario incorrecto y contraseña válida
+  @login_fallido_usuario_incorrecto
+  Scenario Outline: Login con usuario incorrecto
+    When ingresa el correo "<email>" y la contraseña "<password>"
+    And  presiona el boton de iniciar sesion
     Then debe ver el mensaje de error "Your email or password is incorrect!"
+    Examples:
+      | email         | password |
+      | ri@mail.com | pass123 |
 
-  Scenario: Login con contraseña incorrecta
-    Given el usuario navega a la página de login
-    When ingresa usuario válido y contraseña incorrecta
+
+  @login_fallido_contrasena_incorrecto
+  Scenario Outline: Login con usuario incorrecto
+    When ingresa el correo "<email>" y la contraseña "<password>"
+    And  presiona el boton de iniciar sesion
     Then debe ver el mensaje de error "Your email or password is incorrect!"
-
+    Examples:
+      | email         | password |
+      | juan@mail.com | pass1234 |

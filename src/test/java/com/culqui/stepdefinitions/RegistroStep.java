@@ -1,5 +1,6 @@
 package com.culqui.stepdefinitions;
 
+import com.culqui.questions.ElMensajeLoginErro;
 import com.culqui.questions.ElTituloCuentaCreada;
 import com.culqui.questions.ElTituloIngresarInformacion;
 import com.culqui.questions.ElTituloRegistro;
@@ -8,6 +9,7 @@ import com.culqui.task.loguearse.Inicio;
 import com.culqui.task.nuevoUsuario.CrearUsuario;
 import com.culqui.task.nuevoUsuario.InformacionNuevoUsuario;
 import com.culqui.task.nuevoUsuario.IngresarInformacionDireccion;
+import com.culqui.userinterfaces.LoginUser;
 import com.culqui.userinterfaces.RegistroUser;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -15,6 +17,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import net.serenitybdd.screenplay.actions.Click;
 import net.serenitybdd.screenplay.actors.OnStage;
+import net.serenitybdd.screenplay.questions.Text;
 
 import java.util.List;
 import java.util.Map;
@@ -49,10 +52,10 @@ public class RegistroStep {
         String password = data.get(0).get("contraseña");
         String dia = data.get(0).get("diaNacimiento");
         String mes = data.get(0).get("mesNacimiento");
-        String año = data.get(0).get("añoNacimiento");
+        String ano = data.get(0).get("añoNacimiento");
 
         OnStage.theActorInTheSpotlight().attemptsTo(
-                InformacionNuevoUsuario.DatosNuevoUsuario(titulo, password, dia, mes, año)
+                InformacionNuevoUsuario.DatosNuevoUsuario(titulo, password, dia, mes, ano)
         );
     }
 
@@ -77,19 +80,21 @@ public class RegistroStep {
     @When("ingresa su información de dirección")
     public void ingresa_su_información_de_dirección(io.cucumber.datatable.DataTable dataTable) {
         List<Map<String, String>> data = dataTable.asMaps(String.class, String.class);
-        String nombre = data.get(0).get("nombre");
+        String nombrePila = data.get(0).get("nombrePila");
         String apellido = data.get(0).get("apellido");
-        String empresa = data.get(0).get("empresa");
+        String compania = data.get(0).get("compania");
         String direccion = data.get(0).get("direccion");
         String direccion2 = data.get(0).get("direccion2");
         String pais = data.get(0).get("pais");
         String estado = data.get(0).get("estado");
         String ciudad = data.get(0).get("ciudad");
         String codigoPostal = data.get(0).get("codigoPostal");
-        String telefono = data.get(0).get("telefono");
+        String numeroTelefono = data.get(0).get("numeroTelefono");
 
         OnStage.theActorInTheSpotlight().attemptsTo(
-                IngresarInformacionDireccion.Direccion(nombre, apellido, empresa, direccion,direccion2, pais, estado, ciudad, codigoPostal, telefono)
+                IngresarInformacionDireccion.Direccion(
+                        nombrePila, apellido, compania, direccion, direccion2, pais, estado, ciudad, codigoPostal, numeroTelefono
+                )
         );
     }
 
@@ -98,22 +103,23 @@ public class RegistroStep {
         theActorInTheSpotlight().should(
                 seeThat("account-created", ElTituloCuentaCreada.cuentaCreadaExitosamente(), equalTo(true))
         );
+        try {
+            Thread.sleep(3000); // Espera 3 segundos (3000 ms)
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        OnStage.theActorInTheSpotlight().attemptsTo(
+                Click.on(RegistroUser.BUTTON_CONTINUE)
+        );
     }
 
-    @Given("el usuario navega a la página de login")
-    public void elUsuarioNavegaALaPáginaDeLogin() {
-    }
-
-    @When("ingresa usuario incorrecto y contraseña válida")
-    public void ingresaUsuarioIncorrectoYContraseñaVálida() {
-        
-    }
 
     @Then("debe ver el mensaje de error {string}")
-    public void debeVerElMensajeDeError(String arg0) {
-        
+    public void debeVerElMensajeDeError(String mensajeEsperado) {
+        OnStage.theActorInTheSpotlight().should(
+                seeThat(ElMensajeLoginErro.validaMensajeError(), equalTo(mensajeEsperado))
+        );
     }
-
     @When("ingresa usuario válido y contraseña incorrecta")
     public void ingresaUsuarioVálidoYContraseñaIncorrecta() {
     }

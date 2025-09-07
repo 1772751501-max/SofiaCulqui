@@ -4,21 +4,28 @@ import com.culqui.userinterfaces.LoginUser;
 import com.culqui.userinterfaces.RegistroUser;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Question;
+import net.serenitybdd.screenplay.questions.Visibility;
 import net.serenitybdd.screenplay.waits.WaitUntil;
 
 import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.isVisible;
 
 public class ElTituloRegistro implements Question {
-    @Override
-    public String answeredBy(Actor actor) {
-        actor.attemptsTo(
-                WaitUntil.the(RegistroUser.TITLE_REGISTER,isVisible()).forNoMoreThan(20).seconds()
-        );
-        return RegistroUser.TITLE_REGISTER.resolveFor(actor).getText();
-    }
 
-    public static ElTituloRegistro validarPantallaRegistro() {
+    public static Question<Boolean> validarPantallaRegistro(){
 
         return new ElTituloRegistro();
     }
+
+    @Override
+    public Object answeredBy(Actor actor) {
+        actor.attemptsTo(
+                WaitUntil.the(RegistroUser.TITLE_REGISTER,isVisible()).forNoMoreThan(8).seconds()
+        );
+        return Visibility.of(RegistroUser.TITLE_REGISTER).answeredBy(actor).booleanValue();
+    }
+
+
+
+
+
 }
